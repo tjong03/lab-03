@@ -74,33 +74,37 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    // pop up when click on a city
     private void showEditDeleteDialog(int position) {
         final String cityName = dataList.get(position);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this); //dialog box
+        // dialog box text
         builder.setTitle("Modify City");
         builder.setMessage("What do you want to do with " + cityName + "?");
-
+        //dialog box buttons
         builder.setPositiveButton("Edit", (dialog, which) -> showEditCityDialog(position));
         builder.setNeutralButton("Delete", (dialog, which) -> {
             dataList.remove(position);
             cityAdapter.notifyDataSetChanged();
         });
+        // close button
         builder.setNegativeButton("Cancel", null);
 
         builder.show();
     }
-
+    // dialog box when editing city name
     private void showEditCityDialog(int position) {
         final EditText input = new EditText(this);
         input.setText(dataList.get(position));
-
+        // dialog box
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //dialog textbox
         builder.setTitle("Edit City");
         builder.setView(input);
-
+        // save new name
         builder.setPositiveButton("Save", (dialog, which) -> {
-            String newName = input.getText().toString().trim();
+            String newName = input.getText().toString().trim(); // clean inpttxt
             if (!newName.isEmpty()) {
                 dataList.set(position, newName);
                 cityAdapter.notifyDataSetChanged();
